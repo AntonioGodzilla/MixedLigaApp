@@ -1,0 +1,231 @@
+﻿<UserControl x:Class="WpfApplicationLiga.Views.Controls.BegegnungenEditierenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Width="600"
+             Height="500"
+             mc:Ignorable="d">
+    <Grid Background="#FFECE5DC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*" />
+            <RowDefinition Height="60*" />
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <CollectionViewSource x:Key="MannschaftenViewRessource" Source="{Binding MannschaftenViewSource}" />
+            <CollectionViewSource x:Key="GastMannschaftenViewRessource" Source="{Binding MannschaftenViewSource}" />
+        </Grid.Resources>
+        <GridSplitter Grid.Row="1" 
+                      Grid.ColumnSpan="4" 
+                      Height="3" 
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Top"
+                      Background="Bisque">
+            <GridSplitter.ToolTip>Zum Verschieben hier klicken</GridSplitter.ToolTip>
+        </GridSplitter>
+        <DataGrid x:Name="DtgBegegnungenEdit"
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  Margin="0,0,0,2" 
+                      AlternatingRowBackground="#FFDDE9F7"
+                      AlternationCount="1"
+                      AutoGenerateColumns="false"
+                      ClipboardCopyMode="IncludeHeader"
+                      IsHitTestVisible="True"
+                      ItemsSource="{Binding BegegnungenEditView,
+                                            Mode=TwoWay}"
+                      VerticalScrollBarVisibility="Visible">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding CommandRefreshSaetzeEndstand, Mode=OneWay}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="ClmId"
+                                        Width="20"
+                                        Binding="{Binding Path=id}"
+                                        Header="id"
+                                        Visibility="Collapsed" />
+                <DataGridTextColumn x:Name="ClmSpielnummer"
+                                        Width="Auto"
+                                        Binding="{Binding Path=Spielnummer}"
+                                        Header="Spiel" />
+                <DataGridTextColumn x:Name="clmDatum"
+                                        Width="Auto"
+                                        Binding="{Binding Begegnungsdatum,
+                                                          StringFormat={}{0:dd.MM.yyyy}}"
+                                        Header="Datum"
+                                        IsReadOnly="True" />
+                <DataGridComboBoxColumn x:Name="cmbHeim"
+                                            DisplayMemberPath="Vereinsname"
+                                            Header="Heim"
+                                            ItemsSource="{Binding Source={StaticResource MannschaftenViewRessource},
+                                                                  Mode=OneWay}"
+                                            SelectedValueBinding="{Binding Path=idManschaftHeim}"
+                                            SelectedValuePath="id" />
+                <DataGridComboBoxColumn x:Name="cmbGast"
+                                            DisplayMemberPath="Vereinsname"
+                                            Header="Gast"
+                                            ItemsSource="{Binding Source={StaticResource GastMannschaftenViewRessource},
+                                                                  Mode=OneWay}"
+                                            SelectedValueBinding="{Binding Path=idMannschaftGast}"
+                                            SelectedValuePath="id" />
+                <DataGridTextColumn x:Name="clmStrafpunkteHeim"
+                                        Width="Auto"
+                                        Binding="{Binding StrafpunkteHeim}"
+                                        Header="Heim-Strafpunkte" />
+                <DataGridTextColumn x:Name="clmStrafpunkteGast"
+                                        Width="Auto"
+                                        Binding="{Binding StrafpunkteGast}"
+                                        Header="Gast-Strafpunkte" />
+                <DataGridTextColumn x:Name="clmBemerkungen"
+                                        Width="Auto"
+                                        Binding="{Binding Bemerkungen}"
+                                        Header="Bemerkungen" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="0"
+                  Grid.Row="2"
+                Margin="0,3,200,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" MinHeight="10"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="12*" MinHeight="10"/>
+                <RowDefinition Height="13*" MinHeight="10"/>
+                <RowDefinition Height="50*" MinHeight="10"/>
+                <RowDefinition Height="20*" MinHeight="10"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="lblDatum"
+        		Grid.Column="0"
+        		Grid.Row="0"
+        		Content="Datum:"/>
+            <!--<TextBox    x:Name="txtDatum"
+            	        Grid.Column="1"
+                        Grid.Row="0"
+            	        Text="{Binding BegegnungenEditView.CurrentItem.Begegnungsdatum, Mode=TwoWay, NotifyOnValidationError=True, StringFormat=\{0:dd.MM.yyyy\}}" 
+            	        Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>-->
+            <DatePicker x:Name="DtpDatum"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                      
+                        SelectedDate="{Binding Path=BegegnungenEditView.CurrentItem.Begegnungsdatum}"
+                        />
+            <Label  x:Name="lblSpiel"
+                    Grid.Column="2"
+                    Grid.Row="0"
+            	    HorizontalAlignment="Right"
+            	    VerticalAlignment="Top"
+            	    Content="Spiel:" />
+            <TextBox    x:Name="txbSpielnummer"
+            	        Grid.Column="3"
+                        Grid.Row="0"
+            	        AllowDrop="True"
+            	        Background="White"
+            	        Text="{Binding BegegnungenEditView.CurrentItem.Spielnummer, Mode=TwoWay}"
+            	        TextWrapping="Wrap"/>
+            <Rectangle  Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="4"
+            	HorizontalAlignment="Left"
+            	VerticalAlignment="Top"
+            	Fill="Black"
+            	RenderTransformOrigin="0.5,0.5"
+            	Stroke="Black">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Label x:Name="lblHeim"
+            	    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+            	    Grid.Row="2"
+            	    Content="HEIM"
+            	    FontWeight="Bold"/>
+            <Label  Name="lblGast"
+        		    Grid.Column="3"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+        		    Content="GAST"
+        		    FontWeight="Bold" />
+            <ComboBox   x:Name="cmbHeimCurrent"
+            	        Grid.Column="0"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+            	        DisplayMemberPath="Mannschaft"
+            	        IsEnabled="False"
+            	        IsHitTestVisible="False"
+            	        IsReadOnly="True"
+            	        ItemsSource="{Binding Source={StaticResource MannschaftenViewRessource}}"
+            	        SelectedValue="{Binding BegegnungenEditView.CurrentItem.idManschaftHeim, Mode=Default}"
+            	        SelectedValuePath="id"/>
+            <TextBlock  x:Name="TextBlockSaetzeHeim"
+        		        Grid.Column="2"
+                        Grid.Row="3"
+        		        HorizontalAlignment="Stretch"
+        		        VerticalAlignment="Top"
+        		        Background="#FFF7EBEB"
+        		        FontSize="20"
+        		        FontWeight="SemiBold"
+        		        Text="{Binding BegegnungenSaetze, Mode=TwoWay}"
+        		        TextAlignment="Center"/>
+            <ComboBox   x:Name="cmbGastCurrent"
+        		        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="3"
+        		        DisplayMemberPath="Mannschaft"
+        		        IsEnabled="False"
+        		        IsReadOnly="True"
+        		        IsTabStop="True"
+        		        IsTextSearchEnabled="False"
+        		        ItemsSource="{Binding Source={StaticResource GastMannschaftenViewRessource}}"
+        		        SelectedValue="{Binding BegegnungenEditView.CurrentItem.idMannschaftGast, Mode=Default}"
+        		        SelectedValuePath="id"/>
+            <DataGrid   Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="4"
+                        Margin="30,0"
+        		        AutoGenerateColumns="false"
+        		        HorizontalScrollBarVisibility="Disabled"
+        		        ItemsSource="{Binding BegegnungenEditView/tblSpielbaelle, Mode=TwoWay}"
+        		        SelectionMode="Single"
+                        Height="120"
+        		        VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="txtSatz"
+        				Width="35"
+        				Binding="{Binding Satz}"
+        				Header="Satz" 
+        				KeyboardNavigation.TabIndex="1"/>
+                    <DataGridTextColumn x:Name="txtBaelleHeim"
+        				Width="70"
+        				Binding="{Binding BaelleHeim}"
+        				Header="BaelleHeim" 
+        				KeyboardNavigation.TabIndex="2"/>
+                    <DataGridTextColumn x:Name="txtBaelleGast"
+        				Width="65"
+        				Binding="{Binding BaelleGast}"
+        				Header="BaelleGast" 
+        				KeyboardNavigation.TabIndex="3"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

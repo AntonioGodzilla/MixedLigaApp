@@ -1,0 +1,170 @@
+﻿<UserControl x:Class="WpfApplicationLiga.Views.Controls.SpielePunkteSaetzeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="900"
+             mc:Ignorable="d">
+    <Grid x:Name="MainGrid" HorizontalAlignment="Left" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Background="WhiteSmoke"
+                BorderBrush="DarkOrange"
+                BorderThickness="4"
+                CornerRadius="3"
+                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <DataGrid x:Name="dtgSpielePunkteSaetze"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding PunkteSaetzeView,
+                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="DataGridTextColumnIdBegegnung"
+                                        Width="20"
+                                        Binding="{Binding Path=idbegegnung}"
+                                        Header="id"
+                                        Visibility="Collapsed" />
+                    <DataGridTextColumn x:Name="DataGridTextColumnSpielnummer"
+                                        Width="30"
+                                        Binding="{Binding Path=Spielnummer}"
+                                        Header="Nr"
+                                        Visibility="Visible" IsReadOnly="True" />
+                    <DataGridTextColumn x:Name="DataGridTextDatum"
+                                        Width="100"
+                                        Binding="{Binding Path=Begegnungsdatum}"
+                                        Header="Datum"
+                                        Visibility="Visible" />
+                    <DataGridTextColumn x:Name="DataGridTextColumnHeim"
+                                        Width="150"
+                                        Binding="{Binding Path=Heim}"
+                                        Header="Heim"
+                                        Visibility="Visible" />
+                    <DataGridTextColumn x:Name="DataGridTextColumnGast"
+                                        Width="150"
+                                        Binding="{Binding Path=Gast}"
+                                        Header="Gast"
+                                        Visibility="Visible" />
+                    <DataGridTextColumn x:Name="DataGridTextColumnSatz1"
+                                        Width="50"
+                                        Binding="{Binding Path=Satz1}"
+                                        Header="Satz 1"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnSatz2"
+                                        Width="50"
+                                        Binding="{Binding Path=Satz2}"
+                                        Header="Satz 2"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnSatz3"
+                                        Width="50"
+                                        Binding="{Binding Path=Satz3}"
+                                        Header="Satz 3"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnSatz4"
+                                        Width="50"
+                                        Binding="{Binding Path=Satz4}"
+                                        Header="Satz 4"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnSatz5"
+                                        Width="50"
+                                        Binding="{Binding Path=Satz5}"
+                                        Header="Satz 5"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnSaetze"
+                                        Width="50"
+                                        Binding="{Binding Path=Saetze}"
+                                        Header="Saetze"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnStrafpunkteHeim"
+                                        Width="80"
+                                        Binding="{Binding Path=StrafpunkteHeim}"
+                                        Header="Heim-Strafe"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnStrafpunkteGast"
+                                        Width="80"
+                                        Binding="{Binding Path=StrafpunkteGast}"
+                                        Header="Gast-Strafe"
+                                        Visibility="Visible">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="DataGridTextColumnBemerkungen"
+                                        Width="200"
+                                        Binding="{Binding Path=Bemerkungen}"
+                                        Header="Bemerkungen"
+                                        Visibility="Visible">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Border>
+    </Grid>
+</UserControl>
