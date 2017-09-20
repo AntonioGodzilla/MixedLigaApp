@@ -1,0 +1,968 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InstInitiatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBegegnungen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSaison" Type="int" />
+          <Property Name="idManschaftHeim" Type="int" />
+          <Property Name="idMannschaftGast" Type="int" />
+          <Property Name="Begegnungsdatum" Type="date" />
+          <Property Name="Spielnummer" Type="float" />
+          <Property Name="StrafpunkteHeim" Type="smallint" />
+          <Property Name="StrafpunkteGast" Type="smallint" />
+          <Property Name="Bemerkungen" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="tblLigen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Liga" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblMannschaften">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Mannschaft" Type="varchar" MaxLength="50" />
+          <Property Name="Vereinsname" Type="varchar" MaxLength="50" />
+          <Property Name="Kurzname" Type="nvarchar" MaxLength="5" />
+          <Property Name="Ansprechpartner" Type="nvarchar" MaxLength="150" />
+          <Property Name="Emails" Type="nvarchar" MaxLength="150" />
+          <Property Name="idLiga" Type="int" Nullable="false" />
+          <Property Name="Homepage" Type="varchar" MaxLength="50" />
+          <Property Name="Aktiv" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblSaisons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idLiga" Type="int" />
+          <Property Name="Saison" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblSpielbaelle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idBegegnung" Type="int" />
+          <Property Name="Satz" Type="smallint" />
+          <Property Name="BaelleHeim" Type="smallint" />
+          <Property Name="BaelleGast" Type="smallint" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="Ende" Type="datetime" />
+          <Property Name="Sanktionen_Gelb" Type="smallint" />
+          <Property Name="Sanktionen_Rot" Type="smallint" />
+          <Property Name="Disqualifikation" Type="varchar" MaxLength="50" />
+          <Property Name="Auszeiten" Type="smallint" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_Begegnungen' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_Begegnungen">
+          <Key>
+            <PropertyRef Name="id_Begegnung" />
+          </Key>
+          <Property Name="id_Begegnung" Type="int" Nullable="false" />
+          <Property Name="Spielnummer" Type="float" />
+          <Property Name="Heim_Mannschaft" Type="varchar" MaxLength="50" />
+          <Property Name="Gast_Mannschaft" Type="varchar" MaxLength="50" />
+          <Property Name="Begegnungsdatum" Type="date" />
+          <Property Name="Heim_Kurz" Type="nvarchar" MaxLength="5" />
+          <Property Name="Gast_Kurz" Type="nvarchar" MaxLength="5" />
+          <Property Name="Bemerkungen" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_Begegnungen_Punkte' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_Begegnungen_Punkte">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="SatzpunktHeim" />
+            <PropertyRef Name="SatzpunktGast" />
+          </Key>
+          <Property Name="idBegegnung" Type="int" Nullable="false" />
+          <Property Name="idManschaftHeim" Type="int" />
+          <Property Name="idMannschaftGast" Type="int" />
+          <Property Name="Satz" Type="smallint" />
+          <Property Name="BaelleHeim" Type="smallint" />
+          <Property Name="BaelleGast" Type="smallint" />
+          <Property Name="SatzpunktHeim" Type="int" Nullable="false" />
+          <Property Name="SatzpunktGast" Type="int" Nullable="false" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="Ende" Type="datetime" />
+          <Property Name="Sanktionen_Gelb" Type="smallint" />
+          <Property Name="Sanktionen_Rot" Type="smallint" />
+          <Property Name="Disqualifikation" Type="varchar" MaxLength="50" />
+          <Property Name="Auszeiten" Type="smallint" />
+          <Property Name="Begegnungsdatum" Type="smalldatetime" />
+          <Property Name="Spielnummer" Type="float" />
+          <Property Name="idSaison" Type="int" />
+          <Property Name="Bemerkungen" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_Begegnungen_Punkteberechnung' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_Begegnungen_Punkteberechnung">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="Heimsieg3zu1" />
+            <PropertyRef Name="Heimsieg3zu2" />
+            <PropertyRef Name="HeimNiederlage2zu3" />
+            <PropertyRef Name="GastNiederlage3zu2" />
+            <PropertyRef Name="Gastsieg2zu3" />
+            <PropertyRef Name="Gastsieg1zu3" />
+            <PropertyRef Name="Gespielt" />
+          </Key>
+          <Property Name="idBegegnung" Type="int" Nullable="false" />
+          <Property Name="Spielnummer" Type="float" />
+          <Property Name="Begegnungsdatum" Type="smalldatetime" />
+          <Property Name="idManschaftHeim" Type="int" />
+          <Property Name="Heim" Type="varchar" MaxLength="50" />
+          <Property Name="idMannschaftGast" Type="int" />
+          <Property Name="Gast" Type="varchar" MaxLength="50" />
+          <Property Name="BaelleHeimEndstand" Type="int" />
+          <Property Name="BaelleGastEndstand" Type="int" />
+          <Property Name="SatzpunkteHeimEndstand" Type="int" />
+          <Property Name="SatzpunkteGastEndstand" Type="int" />
+          <Property Name="Heimsieg3zu1" Type="int" Nullable="false" />
+          <Property Name="Heimsieg3zu2" Type="int" Nullable="false" />
+          <Property Name="HeimNiederlage2zu3" Type="int" Nullable="false" />
+          <Property Name="GastNiederlage3zu2" Type="int" Nullable="false" />
+          <Property Name="Gastsieg2zu3" Type="int" Nullable="false" />
+          <Property Name="Gastsieg1zu3" Type="int" Nullable="false" />
+          <Property Name="Gespielt" Type="int" Nullable="false" />
+          <Property Name="idSaison" Type="int" />
+          <Property Name="StrafpunkteHeim" Type="smallint" />
+          <Property Name="StrafpunkteGast" Type="smallint" />
+          <Property Name="Bemerkungen" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_Begegnungen_Saetze' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_Begegnungen_Saetze">
+          <Key>
+            <PropertyRef Name="id_Spielbaelle" />
+          </Key>
+          <Property Name="idBegegnung" Type="int" />
+          <Property Name="id_Spielbaelle" Type="int" Nullable="false" />
+          <Property Name="Satz01Heim" Type="smallint" />
+          <Property Name="Satz01Gast" Type="smallint" />
+          <Property Name="Satz02Heim" Type="smallint" />
+          <Property Name="Satz02Gast" Type="smallint" />
+          <Property Name="Satz03Heim" Type="smallint" />
+          <Property Name="Satz03Gast" Type="smallint" />
+          <Property Name="Satz04Heim" Type="smallint" />
+          <Property Name="Satz04Gast" Type="smallint" />
+          <Property Name="Satz05Heim" Type="smallint" />
+          <Property Name="Satz05Gast" Type="smallint" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_Begegnungen_Zusammenfassung_PunkteSaetze' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_Begegnungen_Zusammenfassung_PunkteSaetze">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="Spielnummer" />
+            <PropertyRef Name="Begegnungsdatum" />
+            <PropertyRef Name="Satz1" />
+            <PropertyRef Name="Satz2" />
+            <PropertyRef Name="Satz3" />
+            <PropertyRef Name="Satz4" />
+            <PropertyRef Name="Satz5" />
+            <PropertyRef Name="Saetze" />
+            <PropertyRef Name="StrafpunkteHeim" />
+            <PropertyRef Name="StrafpunkteGast" />
+            <PropertyRef Name="Bemerkungen" />
+          </Key>
+          <Property Name="idBegegnung" Type="int" Nullable="false" />
+          <Property Name="Spielnummer" Type="float" Nullable="false" />
+          <Property Name="Begegnungsdatum" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Heim" Type="varchar" MaxLength="50" />
+          <Property Name="Gast" Type="varchar" MaxLength="50" />
+          <Property Name="Satz1" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="Satz2" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="Satz3" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="Satz4" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="Satz5" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="Saetze" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="StrafpunkteHeim" Type="smallint" Nullable="false" />
+          <Property Name="StrafpunkteGast" Type="smallint" Nullable="false" />
+          <Property Name="Bemerkungen" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="idSaison" Type="int" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'Liga.dbo.qry_LigaSaison' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="qry_LigaSaison">
+          <Key>
+            <PropertyRef Name="idSaison" />
+          </Key>
+          <Property Name="idSaison" Type="int" Nullable="false" />
+          <Property Name="LigaSaison" Type="varchar" MaxLength="101" />
+        </EntityType>
+        <Association Name="FK_tblBegegnungen_tblMannschaften">
+          <End Role="tblMannschaften" Type="Self.tblMannschaften" Multiplicity="0..1" />
+          <End Role="tblBegegnungen" Type="Self.tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMannschaften">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idManschaftHeim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBegegnungen_tblMannschaften1">
+          <End Role="tblMannschaften" Type="Self.tblMannschaften" Multiplicity="0..1" />
+          <End Role="tblBegegnungen" Type="Self.tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMannschaften">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idMannschaftGast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBegegnungen_tblSaisons">
+          <End Role="tblSaisons" Type="Self.tblSaisons" Multiplicity="0..1" />
+          <End Role="tblBegegnungen" Type="Self.tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaisons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idSaison" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMannschaften_tblLigen">
+          <End Role="tblLigen" Type="Self.tblLigen" Multiplicity="1" />
+          <End Role="tblMannschaften" Type="Self.tblMannschaften" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLigen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblMannschaften">
+              <PropertyRef Name="idLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaisons_tblLigen">
+          <End Role="tblLigen" Type="Self.tblLigen" Multiplicity="0..1" />
+          <End Role="tblSaisons" Type="Self.tblSaisons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLigen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblSaisons">
+              <PropertyRef Name="idLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSpielbaelle_tblBegegnungen1">
+          <End Role="tblBegegnungen" Type="Self.tblBegegnungen" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblSpielbaelle" Type="Self.tblSpielbaelle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBegegnungen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblSpielbaelle">
+              <PropertyRef Name="idBegegnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="uspGetSaisonTabelle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_Saison" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="InstInitiatorDBModelStoreContainer">
+          <EntitySet Name="tblBegegnungen" EntityType="Self.tblBegegnungen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLigen" EntityType="Self.tblLigen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMannschaften" EntityType="Self.tblMannschaften" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSaisons" EntityType="Self.tblSaisons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSpielbaelle" EntityType="Self.tblSpielbaelle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="qry_Begegnungen" EntityType="Self.qry_Begegnungen" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_Begegnungen].[id_Begegnung] AS [id_Begegnung], 
+[qry_Begegnungen].[Spielnummer] AS [Spielnummer], 
+[qry_Begegnungen].[Heim_Mannschaft] AS [Heim_Mannschaft], 
+[qry_Begegnungen].[Gast_Mannschaft] AS [Gast_Mannschaft], 
+[qry_Begegnungen].[Begegnungsdatum] AS [Begegnungsdatum], 
+[qry_Begegnungen].[Heim_Kurz] AS [Heim_Kurz], 
+[qry_Begegnungen].[Gast_Kurz] AS [Gast_Kurz], 
+[qry_Begegnungen].[Bemerkungen] AS [Bemerkungen]
+FROM [dbo].[qry_Begegnungen] AS [qry_Begegnungen]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qry_Begegnungen_Punkte" EntityType="Self.qry_Begegnungen_Punkte" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_Begegnungen_Punkte].[idBegegnung] AS [idBegegnung], 
+[qry_Begegnungen_Punkte].[idManschaftHeim] AS [idManschaftHeim], 
+[qry_Begegnungen_Punkte].[idMannschaftGast] AS [idMannschaftGast], 
+[qry_Begegnungen_Punkte].[Satz] AS [Satz], 
+[qry_Begegnungen_Punkte].[BaelleHeim] AS [BaelleHeim], 
+[qry_Begegnungen_Punkte].[BaelleGast] AS [BaelleGast], 
+[qry_Begegnungen_Punkte].[SatzpunktHeim] AS [SatzpunktHeim], 
+[qry_Begegnungen_Punkte].[SatzpunktGast] AS [SatzpunktGast], 
+[qry_Begegnungen_Punkte].[Start] AS [Start], 
+[qry_Begegnungen_Punkte].[Ende] AS [Ende], 
+[qry_Begegnungen_Punkte].[Sanktionen_Gelb] AS [Sanktionen_Gelb], 
+[qry_Begegnungen_Punkte].[Sanktionen_Rot] AS [Sanktionen_Rot], 
+[qry_Begegnungen_Punkte].[Disqualifikation] AS [Disqualifikation], 
+[qry_Begegnungen_Punkte].[Auszeiten] AS [Auszeiten], 
+[qry_Begegnungen_Punkte].[Begegnungsdatum] AS [Begegnungsdatum], 
+[qry_Begegnungen_Punkte].[Spielnummer] AS [Spielnummer], 
+[qry_Begegnungen_Punkte].[idSaison] AS [idSaison], 
+[qry_Begegnungen_Punkte].[Bemerkungen] AS [Bemerkungen]
+FROM [dbo].[qry_Begegnungen_Punkte] AS [qry_Begegnungen_Punkte]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qry_Begegnungen_Punkteberechnung" EntityType="Self.qry_Begegnungen_Punkteberechnung" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_Begegnungen_Punkteberechnung].[idBegegnung] AS [idBegegnung], 
+[qry_Begegnungen_Punkteberechnung].[Spielnummer] AS [Spielnummer], 
+[qry_Begegnungen_Punkteberechnung].[Begegnungsdatum] AS [Begegnungsdatum], 
+[qry_Begegnungen_Punkteberechnung].[idManschaftHeim] AS [idManschaftHeim], 
+[qry_Begegnungen_Punkteberechnung].[Heim] AS [Heim], 
+[qry_Begegnungen_Punkteberechnung].[idMannschaftGast] AS [idMannschaftGast], 
+[qry_Begegnungen_Punkteberechnung].[Gast] AS [Gast], 
+[qry_Begegnungen_Punkteberechnung].[BaelleHeimEndstand] AS [BaelleHeimEndstand], 
+[qry_Begegnungen_Punkteberechnung].[BaelleGastEndstand] AS [BaelleGastEndstand], 
+[qry_Begegnungen_Punkteberechnung].[SatzpunkteHeimEndstand] AS [SatzpunkteHeimEndstand], 
+[qry_Begegnungen_Punkteberechnung].[SatzpunkteGastEndstand] AS [SatzpunkteGastEndstand], 
+[qry_Begegnungen_Punkteberechnung].[Heimsieg3zu1] AS [Heimsieg3zu1], 
+[qry_Begegnungen_Punkteberechnung].[Heimsieg3zu2] AS [Heimsieg3zu2], 
+[qry_Begegnungen_Punkteberechnung].[HeimNiederlage2zu3] AS [HeimNiederlage2zu3], 
+[qry_Begegnungen_Punkteberechnung].[GastNiederlage3zu2] AS [GastNiederlage3zu2], 
+[qry_Begegnungen_Punkteberechnung].[Gastsieg2zu3] AS [Gastsieg2zu3], 
+[qry_Begegnungen_Punkteberechnung].[Gastsieg1zu3] AS [Gastsieg1zu3], 
+[qry_Begegnungen_Punkteberechnung].[Gespielt] AS [Gespielt], 
+[qry_Begegnungen_Punkteberechnung].[idSaison] AS [idSaison], 
+[qry_Begegnungen_Punkteberechnung].[StrafpunkteHeim] AS [StrafpunkteHeim], 
+[qry_Begegnungen_Punkteberechnung].[StrafpunkteGast] AS [StrafpunkteGast], 
+[qry_Begegnungen_Punkteberechnung].[Bemerkungen] AS [Bemerkungen]
+FROM [dbo].[qry_Begegnungen_Punkteberechnung] AS [qry_Begegnungen_Punkteberechnung]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qry_Begegnungen_Saetze" EntityType="Self.qry_Begegnungen_Saetze" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_Begegnungen_Saetze].[idBegegnung] AS [idBegegnung], 
+[qry_Begegnungen_Saetze].[id_Spielbaelle] AS [id_Spielbaelle], 
+[qry_Begegnungen_Saetze].[Satz01Heim] AS [Satz01Heim], 
+[qry_Begegnungen_Saetze].[Satz01Gast] AS [Satz01Gast], 
+[qry_Begegnungen_Saetze].[Satz02Heim] AS [Satz02Heim], 
+[qry_Begegnungen_Saetze].[Satz02Gast] AS [Satz02Gast], 
+[qry_Begegnungen_Saetze].[Satz03Heim] AS [Satz03Heim], 
+[qry_Begegnungen_Saetze].[Satz03Gast] AS [Satz03Gast], 
+[qry_Begegnungen_Saetze].[Satz04Heim] AS [Satz04Heim], 
+[qry_Begegnungen_Saetze].[Satz04Gast] AS [Satz04Gast], 
+[qry_Begegnungen_Saetze].[Satz05Heim] AS [Satz05Heim], 
+[qry_Begegnungen_Saetze].[Satz05Gast] AS [Satz05Gast]
+FROM [dbo].[qry_Begegnungen_Saetze] AS [qry_Begegnungen_Saetze]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qry_Begegnungen_Zusammenfassung_PunkteSaetze" EntityType="Self.qry_Begegnungen_Zusammenfassung_PunkteSaetze" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[idBegegnung] AS [idBegegnung], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Spielnummer] AS [Spielnummer], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Begegnungsdatum] AS [Begegnungsdatum], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Heim] AS [Heim], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Gast] AS [Gast], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Satz1] AS [Satz1], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Satz2] AS [Satz2], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Satz3] AS [Satz3], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Satz4] AS [Satz4], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Satz5] AS [Satz5], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Saetze] AS [Saetze], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[StrafpunkteHeim] AS [StrafpunkteHeim], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[StrafpunkteGast] AS [StrafpunkteGast], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[Bemerkungen] AS [Bemerkungen], 
+[qry_Begegnungen_Zusammenfassung_PunkteSaetze].[idSaison] AS [idSaison]
+FROM [dbo].[qry_Begegnungen_Zusammenfassung_PunkteSaetze] AS [qry_Begegnungen_Zusammenfassung_PunkteSaetze]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="qry_LigaSaison" EntityType="Self.qry_LigaSaison" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[qry_LigaSaison].[idSaison] AS [idSaison], 
+[qry_LigaSaison].[LigaSaison] AS [LigaSaison]
+FROM [dbo].[qry_LigaSaison] AS [qry_LigaSaison]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblBegegnungen_tblMannschaften" Association="Self.FK_tblBegegnungen_tblMannschaften">
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBegegnungen_tblMannschaften1" Association="Self.FK_tblBegegnungen_tblMannschaften1">
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBegegnungen_tblSaisons" Association="Self.FK_tblBegegnungen_tblSaisons">
+            <End Role="tblSaisons" EntitySet="tblSaisons" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMannschaften_tblLigen" Association="Self.FK_tblMannschaften_tblLigen">
+            <End Role="tblLigen" EntitySet="tblLigen" />
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaisons_tblLigen" Association="Self.FK_tblSaisons_tblLigen">
+            <End Role="tblLigen" EntitySet="tblLigen" />
+            <End Role="tblSaisons" EntitySet="tblSaisons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSpielbaelle_tblBegegnungen1" Association="Self.FK_tblSpielbaelle_tblBegegnungen1">
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+            <End Role="tblSpielbaelle" EntitySet="tblSpielbaelle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InstInitiatorDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LigaDB_ORM" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBegegnungen" EntityType="InstInitiatorDBModel.tblBegegnungen" />
+          <EntitySet Name="tblLigen" EntityType="InstInitiatorDBModel.tblLigen" />
+          <EntitySet Name="tblMannschaften" EntityType="InstInitiatorDBModel.tblMannschaften" />
+          <EntitySet Name="tblSaisons" EntityType="InstInitiatorDBModel.tblSaisons" />
+          <EntitySet Name="tblSpielbaelle" EntityType="InstInitiatorDBModel.tblSpielbaelle" />
+          <EntitySet Name="qry_Begegnungen" EntityType="InstInitiatorDBModel.qry_Begegnungen" />
+          <EntitySet Name="qry_Begegnungen_Punkte" EntityType="InstInitiatorDBModel.qry_Begegnungen_Punkte" />
+          <EntitySet Name="qry_Begegnungen_Punkteberechnung" EntityType="InstInitiatorDBModel.qry_Begegnungen_Punkteberechnung" />
+          <EntitySet Name="qry_Begegnungen_Saetze" EntityType="InstInitiatorDBModel.qry_Begegnungen_Saetze" />
+          <EntitySet Name="qry_Begegnungen_Zusammenfassung_PunkteSaetze" EntityType="InstInitiatorDBModel.qry_Begegnungen_Zusammenfassung_PunkteSaetze" />
+          <EntitySet Name="qry_LigaSaison" EntityType="InstInitiatorDBModel.qry_LigaSaison" />
+          <AssociationSet Name="FK_tblBegegnungen_tblMannschaften" Association="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften">
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBegegnungen_tblMannschaften1" Association="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften1">
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBegegnungen_tblSaisons" Association="InstInitiatorDBModel.FK_tblBegegnungen_tblSaisons">
+            <End Role="tblSaisons" EntitySet="tblSaisons" />
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSpielbaelle_tblBegegnungen1" Association="InstInitiatorDBModel.FK_tblSpielbaelle_tblBegegnungen1">
+            <End Role="tblBegegnungen" EntitySet="tblBegegnungen" />
+            <End Role="tblSpielbaelle" EntitySet="tblSpielbaelle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMannschaften_tblLigen" Association="InstInitiatorDBModel.FK_tblMannschaften_tblLigen">
+            <End Role="tblLigen" EntitySet="tblLigen" />
+            <End Role="tblMannschaften" EntitySet="tblMannschaften" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaisons_tblLigen" Association="InstInitiatorDBModel.FK_tblSaisons_tblLigen">
+            <End Role="tblLigen" EntitySet="tblLigen" />
+            <End Role="tblSaisons" EntitySet="tblSaisons" />
+          </AssociationSet>
+          <FunctionImport Name="uspGetSaisonTabelle" ReturnType="Collection(InstInitiatorDBModel.uspGetSaisonTabelle_Result)">
+          <Parameter Name="id_Saison" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tblBegegnungen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSaison" Type="Int32" />
+          <Property Name="idManschaftHeim" Type="Int32" />
+          <Property Name="idMannschaftGast" Type="Int32" />
+          <Property Name="Begegnungsdatum" Type="DateTime" Precision="0" />
+          <Property Name="Spielnummer" Type="Double" />
+          <Property Name="StrafpunkteHeim" Type="Int16" />
+          <Property Name="StrafpunkteGast" Type="Int16" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblMannschaften" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften" FromRole="tblBegegnungen" ToRole="tblMannschaften" />
+          <NavigationProperty Name="tblMannschaften1" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften1" FromRole="tblBegegnungen" ToRole="tblMannschaften" />
+          <NavigationProperty Name="tblSaisons" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblSaisons" FromRole="tblBegegnungen" ToRole="tblSaisons" />
+          <NavigationProperty Name="tblSpielbaelle" Relationship="InstInitiatorDBModel.FK_tblSpielbaelle_tblBegegnungen1" FromRole="tblBegegnungen" ToRole="tblSpielbaelle" />
+        </EntityType>
+        <EntityType Name="tblLigen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Liga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblMannschaften" Relationship="InstInitiatorDBModel.FK_tblMannschaften_tblLigen" FromRole="tblLigen" ToRole="tblMannschaften" />
+          <NavigationProperty Name="tblSaisons" Relationship="InstInitiatorDBModel.FK_tblSaisons_tblLigen" FromRole="tblLigen" ToRole="tblSaisons" />
+        </EntityType>
+        <EntityType Name="tblMannschaften">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Mannschaft" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vereinsname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kurzname" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Ansprechpartner" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Emails" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="idLiga" Type="Int32" Nullable="false" />
+          <Property Name="Homepage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBegegnungen" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften" FromRole="tblMannschaften" ToRole="tblBegegnungen" />
+          <NavigationProperty Name="tblBegegnungen1" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblMannschaften1" FromRole="tblMannschaften" ToRole="tblBegegnungen" />
+          <NavigationProperty Name="tblLigen" Relationship="InstInitiatorDBModel.FK_tblMannschaften_tblLigen" FromRole="tblMannschaften" ToRole="tblLigen" />
+          <Property Name="Aktiv" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblSaisons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idLiga" Type="Int32" />
+          <Property Name="Saison" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBegegnungen" Relationship="InstInitiatorDBModel.FK_tblBegegnungen_tblSaisons" FromRole="tblSaisons" ToRole="tblBegegnungen" />
+          <NavigationProperty Name="tblLigen" Relationship="InstInitiatorDBModel.FK_tblSaisons_tblLigen" FromRole="tblSaisons" ToRole="tblLigen" />
+        </EntityType>
+        <EntityType Name="tblSpielbaelle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idBegegnung" Type="Int32" />
+          <Property Name="Satz" Type="Int16" />
+          <Property Name="BaelleHeim" Type="Int16" />
+          <Property Name="BaelleGast" Type="Int16" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="Ende" Type="DateTime" Precision="3" />
+          <Property Name="Sanktionen_Gelb" Type="Int16" />
+          <Property Name="Sanktionen_Rot" Type="Int16" />
+          <Property Name="Disqualifikation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Auszeiten" Type="Int16" />
+          <NavigationProperty Name="tblBegegnungen" Relationship="InstInitiatorDBModel.FK_tblSpielbaelle_tblBegegnungen1" FromRole="tblSpielbaelle" ToRole="tblBegegnungen" />
+        </EntityType>
+        <EntityType Name="qry_Begegnungen">
+          <Key>
+            <PropertyRef Name="id_Begegnung" />
+          </Key>
+          <Property Name="id_Begegnung" Type="Int32" Nullable="false" />
+          <Property Name="Spielnummer" Type="Double" />
+          <Property Name="Heim_Mannschaft" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gast_Mannschaft" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Begegnungsdatum" Type="DateTime" Precision="0" />
+          <Property Name="Heim_Kurz" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Gast_Kurz" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="qry_Begegnungen_Punkte">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="SatzpunktHeim" />
+            <PropertyRef Name="SatzpunktGast" />
+          </Key>
+          <Property Name="idBegegnung" Type="Int32" Nullable="false" />
+          <Property Name="idManschaftHeim" Type="Int32" />
+          <Property Name="idMannschaftGast" Type="Int32" />
+          <Property Name="Satz" Type="Int16" />
+          <Property Name="BaelleHeim" Type="Int16" />
+          <Property Name="BaelleGast" Type="Int16" />
+          <Property Name="SatzpunktHeim" Type="Int32" Nullable="false" />
+          <Property Name="SatzpunktGast" Type="Int32" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="Ende" Type="DateTime" Precision="3" />
+          <Property Name="Sanktionen_Gelb" Type="Int16" />
+          <Property Name="Sanktionen_Rot" Type="Int16" />
+          <Property Name="Disqualifikation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Auszeiten" Type="Int16" />
+          <Property Name="Begegnungsdatum" Type="DateTime" Precision="0" />
+          <Property Name="Spielnummer" Type="Double" />
+          <Property Name="idSaison" Type="Int32" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="qry_Begegnungen_Punkteberechnung">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="Heimsieg3zu1" />
+            <PropertyRef Name="Heimsieg3zu2" />
+            <PropertyRef Name="HeimNiederlage2zu3" />
+            <PropertyRef Name="GastNiederlage3zu2" />
+            <PropertyRef Name="Gastsieg2zu3" />
+            <PropertyRef Name="Gastsieg1zu3" />
+            <PropertyRef Name="Gespielt" />
+          </Key>
+          <Property Name="idBegegnung" Type="Int32" Nullable="false" />
+          <Property Name="Spielnummer" Type="Double" />
+          <Property Name="Begegnungsdatum" Type="DateTime" Precision="0" />
+          <Property Name="idManschaftHeim" Type="Int32" />
+          <Property Name="Heim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idMannschaftGast" Type="Int32" />
+          <Property Name="Gast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaelleHeimEndstand" Type="Int32" />
+          <Property Name="BaelleGastEndstand" Type="Int32" />
+          <Property Name="SatzpunkteHeimEndstand" Type="Int32" />
+          <Property Name="SatzpunkteGastEndstand" Type="Int32" />
+          <Property Name="Heimsieg3zu1" Type="Int32" Nullable="false" />
+          <Property Name="Heimsieg3zu2" Type="Int32" Nullable="false" />
+          <Property Name="HeimNiederlage2zu3" Type="Int32" Nullable="false" />
+          <Property Name="GastNiederlage3zu2" Type="Int32" Nullable="false" />
+          <Property Name="Gastsieg2zu3" Type="Int32" Nullable="false" />
+          <Property Name="Gastsieg1zu3" Type="Int32" Nullable="false" />
+          <Property Name="Gespielt" Type="Int32" Nullable="false" />
+          <Property Name="idSaison" Type="Int32" />
+          <Property Name="StrafpunkteHeim" Type="Int16" />
+          <Property Name="StrafpunkteGast" Type="Int16" />
+          <Property Name="Bemerkungen" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="qry_Begegnungen_Saetze">
+          <Key>
+            <PropertyRef Name="id_Spielbaelle" />
+          </Key>
+          <Property Name="idBegegnung" Type="Int32" />
+          <Property Name="id_Spielbaelle" Type="Int32" Nullable="false" />
+          <Property Name="Satz01Heim" Type="Int16" />
+          <Property Name="Satz01Gast" Type="Int16" />
+          <Property Name="Satz02Heim" Type="Int16" />
+          <Property Name="Satz02Gast" Type="Int16" />
+          <Property Name="Satz03Heim" Type="Int16" />
+          <Property Name="Satz03Gast" Type="Int16" />
+          <Property Name="Satz04Heim" Type="Int16" />
+          <Property Name="Satz04Gast" Type="Int16" />
+          <Property Name="Satz05Heim" Type="Int16" />
+          <Property Name="Satz05Gast" Type="Int16" />
+        </EntityType>
+        <EntityType Name="qry_Begegnungen_Zusammenfassung_PunkteSaetze">
+          <Key>
+            <PropertyRef Name="idBegegnung" />
+            <PropertyRef Name="Spielnummer" />
+            <PropertyRef Name="Begegnungsdatum" />
+            <PropertyRef Name="Satz1" />
+            <PropertyRef Name="Satz2" />
+            <PropertyRef Name="Satz3" />
+            <PropertyRef Name="Satz4" />
+            <PropertyRef Name="Satz5" />
+            <PropertyRef Name="Saetze" />
+            <PropertyRef Name="StrafpunkteHeim" />
+            <PropertyRef Name="StrafpunkteGast" />
+            <PropertyRef Name="Bemerkungen" />
+          </Key>
+          <Property Name="idBegegnung" Type="Int32" Nullable="false" />
+          <Property Name="Spielnummer" Type="Double" Nullable="false" />
+          <Property Name="Begegnungsdatum" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Heim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Satz1" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="Satz2" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="Satz3" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="Satz4" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="Satz5" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="Saetze" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="StrafpunkteHeim" Type="Int16" Nullable="false" />
+          <Property Name="StrafpunkteGast" Type="Int16" Nullable="false" />
+          <Property Name="Bemerkungen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="idSaison" Type="Int32" />
+        </EntityType>
+        <EntityType Name="qry_LigaSaison">
+          <Key>
+            <PropertyRef Name="idSaison" />
+          </Key>
+          <Property Name="idSaison" Type="Int32" Nullable="false" />
+          <Property Name="LigaSaison" Type="String" MaxLength="101" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblBegegnungen_tblMannschaften">
+          <End Type="InstInitiatorDBModel.tblMannschaften" Role="tblMannschaften" Multiplicity="0..1" />
+          <End Type="InstInitiatorDBModel.tblBegegnungen" Role="tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMannschaften">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idManschaftHeim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBegegnungen_tblMannschaften1">
+          <End Type="InstInitiatorDBModel.tblMannschaften" Role="tblMannschaften" Multiplicity="0..1" />
+          <End Type="InstInitiatorDBModel.tblBegegnungen" Role="tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMannschaften">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idMannschaftGast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBegegnungen_tblSaisons">
+          <End Type="InstInitiatorDBModel.tblSaisons" Role="tblSaisons" Multiplicity="0..1" />
+          <End Type="InstInitiatorDBModel.tblBegegnungen" Role="tblBegegnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaisons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBegegnungen">
+              <PropertyRef Name="idSaison" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSpielbaelle_tblBegegnungen1">
+          <End Type="InstInitiatorDBModel.tblBegegnungen" Role="tblBegegnungen" Multiplicity="0..1" />
+          <End Type="InstInitiatorDBModel.tblSpielbaelle" Role="tblSpielbaelle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBegegnungen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblSpielbaelle">
+              <PropertyRef Name="idBegegnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMannschaften_tblLigen">
+          <End Type="InstInitiatorDBModel.tblLigen" Role="tblLigen" Multiplicity="1" />
+          <End Type="InstInitiatorDBModel.tblMannschaften" Role="tblMannschaften" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLigen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblMannschaften">
+              <PropertyRef Name="idLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaisons_tblLigen">
+          <End Type="InstInitiatorDBModel.tblLigen" Role="tblLigen" Multiplicity="0..1" />
+          <End Type="InstInitiatorDBModel.tblSaisons" Role="tblSaisons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLigen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblSaisons">
+              <PropertyRef Name="idLiga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="uspGetSaisonTabelle_Result">
+          <Property Type="Int32" Name="id_mannschaft" Nullable="true" />
+          <Property Type="String" Name="mannschaft" Nullable="true" MaxLength="58" />
+          <Property Type="Int32" Name="spiele" Nullable="true" />
+          <Property Type="Int32" Name="DreiZuNullDreiZuEins" Nullable="true" />
+          <Property Type="Int32" Name="DreiZuZwei" Nullable="true" />
+          <Property Type="Int32" Name="ZweiZuDrei" Nullable="true" />
+          <Property Type="Int32" Name="EinsZuDrei_NullZuDrei" Nullable="true" />
+          <Property Type="String" Name="Baelle" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="Diff" Nullable="false" />
+          <Property Type="String" Name="Saetze" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="Punkte" Nullable="false" />
+          <Property Type="String" Name="liga" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Strafpunkte" Nullable="false" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InstInitiatorDBModelStoreContainer" CdmEntityContainer="LigaDB_ORM">
+          <EntitySetMapping Name="tblBegegnungen">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.tblBegegnungen">
+              <MappingFragment StoreEntitySet="tblBegegnungen">
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="StrafpunkteGast" ColumnName="StrafpunkteGast" />
+                <ScalarProperty Name="StrafpunkteHeim" ColumnName="StrafpunkteHeim" />
+                <ScalarProperty Name="Spielnummer" ColumnName="Spielnummer" />
+                <ScalarProperty Name="Begegnungsdatum" ColumnName="Begegnungsdatum" />
+                <ScalarProperty Name="idMannschaftGast" ColumnName="idMannschaftGast" />
+                <ScalarProperty Name="idManschaftHeim" ColumnName="idManschaftHeim" />
+                <ScalarProperty Name="idSaison" ColumnName="idSaison" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLigen">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.tblLigen">
+              <MappingFragment StoreEntitySet="tblLigen">
+                <ScalarProperty Name="Liga" ColumnName="Liga" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMannschaften">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.tblMannschaften">
+              <MappingFragment StoreEntitySet="tblMannschaften">
+                <ScalarProperty Name="Aktiv" ColumnName="Aktiv" />
+                <ScalarProperty Name="Homepage" ColumnName="Homepage" />
+                <ScalarProperty Name="idLiga" ColumnName="idLiga" />
+                <ScalarProperty Name="Emails" ColumnName="Emails" />
+                <ScalarProperty Name="Ansprechpartner" ColumnName="Ansprechpartner" />
+                <ScalarProperty Name="Kurzname" ColumnName="Kurzname" />
+                <ScalarProperty Name="Vereinsname" ColumnName="Vereinsname" />
+                <ScalarProperty Name="Mannschaft" ColumnName="Mannschaft" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSaisons">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.tblSaisons">
+              <MappingFragment StoreEntitySet="tblSaisons">
+                <ScalarProperty Name="Saison" ColumnName="Saison" />
+                <ScalarProperty Name="idLiga" ColumnName="idLiga" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSpielbaelle">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.tblSpielbaelle">
+              <MappingFragment StoreEntitySet="tblSpielbaelle">
+                <ScalarProperty Name="Auszeiten" ColumnName="Auszeiten" />
+                <ScalarProperty Name="Disqualifikation" ColumnName="Disqualifikation" />
+                <ScalarProperty Name="Sanktionen_Rot" ColumnName="Sanktionen_Rot" />
+                <ScalarProperty Name="Sanktionen_Gelb" ColumnName="Sanktionen_Gelb" />
+                <ScalarProperty Name="Ende" ColumnName="Ende" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="BaelleGast" ColumnName="BaelleGast" />
+                <ScalarProperty Name="BaelleHeim" ColumnName="BaelleHeim" />
+                <ScalarProperty Name="Satz" ColumnName="Satz" />
+                <ScalarProperty Name="idBegegnung" ColumnName="idBegegnung" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_Begegnungen">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_Begegnungen">
+              <MappingFragment StoreEntitySet="qry_Begegnungen">
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="Gast_Kurz" ColumnName="Gast_Kurz" />
+                <ScalarProperty Name="Heim_Kurz" ColumnName="Heim_Kurz" />
+                <ScalarProperty Name="Begegnungsdatum" ColumnName="Begegnungsdatum" />
+                <ScalarProperty Name="Gast_Mannschaft" ColumnName="Gast_Mannschaft" />
+                <ScalarProperty Name="Heim_Mannschaft" ColumnName="Heim_Mannschaft" />
+                <ScalarProperty Name="Spielnummer" ColumnName="Spielnummer" />
+                <ScalarProperty Name="id_Begegnung" ColumnName="id_Begegnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_Begegnungen_Punkte">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_Begegnungen_Punkte">
+              <MappingFragment StoreEntitySet="qry_Begegnungen_Punkte">
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="idSaison" ColumnName="idSaison" />
+                <ScalarProperty Name="Spielnummer" ColumnName="Spielnummer" />
+                <ScalarProperty Name="Begegnungsdatum" ColumnName="Begegnungsdatum" />
+                <ScalarProperty Name="Auszeiten" ColumnName="Auszeiten" />
+                <ScalarProperty Name="Disqualifikation" ColumnName="Disqualifikation" />
+                <ScalarProperty Name="Sanktionen_Rot" ColumnName="Sanktionen_Rot" />
+                <ScalarProperty Name="Sanktionen_Gelb" ColumnName="Sanktionen_Gelb" />
+                <ScalarProperty Name="Ende" ColumnName="Ende" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="SatzpunktGast" ColumnName="SatzpunktGast" />
+                <ScalarProperty Name="SatzpunktHeim" ColumnName="SatzpunktHeim" />
+                <ScalarProperty Name="BaelleGast" ColumnName="BaelleGast" />
+                <ScalarProperty Name="BaelleHeim" ColumnName="BaelleHeim" />
+                <ScalarProperty Name="Satz" ColumnName="Satz" />
+                <ScalarProperty Name="idMannschaftGast" ColumnName="idMannschaftGast" />
+                <ScalarProperty Name="idManschaftHeim" ColumnName="idManschaftHeim" />
+                <ScalarProperty Name="idBegegnung" ColumnName="idBegegnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_Begegnungen_Punkteberechnung">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_Begegnungen_Punkteberechnung">
+              <MappingFragment StoreEntitySet="qry_Begegnungen_Punkteberechnung">
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="StrafpunkteGast" ColumnName="StrafpunkteGast" />
+                <ScalarProperty Name="StrafpunkteHeim" ColumnName="StrafpunkteHeim" />
+                <ScalarProperty Name="idSaison" ColumnName="idSaison" />
+                <ScalarProperty Name="Gespielt" ColumnName="Gespielt" />
+                <ScalarProperty Name="Gastsieg1zu3" ColumnName="Gastsieg1zu3" />
+                <ScalarProperty Name="Gastsieg2zu3" ColumnName="Gastsieg2zu3" />
+                <ScalarProperty Name="GastNiederlage3zu2" ColumnName="GastNiederlage3zu2" />
+                <ScalarProperty Name="HeimNiederlage2zu3" ColumnName="HeimNiederlage2zu3" />
+                <ScalarProperty Name="Heimsieg3zu2" ColumnName="Heimsieg3zu2" />
+                <ScalarProperty Name="Heimsieg3zu1" ColumnName="Heimsieg3zu1" />
+                <ScalarProperty Name="SatzpunkteGastEndstand" ColumnName="SatzpunkteGastEndstand" />
+                <ScalarProperty Name="SatzpunkteHeimEndstand" ColumnName="SatzpunkteHeimEndstand" />
+                <ScalarProperty Name="BaelleGastEndstand" ColumnName="BaelleGastEndstand" />
+                <ScalarProperty Name="BaelleHeimEndstand" ColumnName="BaelleHeimEndstand" />
+                <ScalarProperty Name="Gast" ColumnName="Gast" />
+                <ScalarProperty Name="idMannschaftGast" ColumnName="idMannschaftGast" />
+                <ScalarProperty Name="Heim" ColumnName="Heim" />
+                <ScalarProperty Name="idManschaftHeim" ColumnName="idManschaftHeim" />
+                <ScalarProperty Name="Begegnungsdatum" ColumnName="Begegnungsdatum" />
+                <ScalarProperty Name="Spielnummer" ColumnName="Spielnummer" />
+                <ScalarProperty Name="idBegegnung" ColumnName="idBegegnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_Begegnungen_Saetze">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_Begegnungen_Saetze">
+              <MappingFragment StoreEntitySet="qry_Begegnungen_Saetze">
+                <ScalarProperty Name="Satz05Gast" ColumnName="Satz05Gast" />
+                <ScalarProperty Name="Satz05Heim" ColumnName="Satz05Heim" />
+                <ScalarProperty Name="Satz04Gast" ColumnName="Satz04Gast" />
+                <ScalarProperty Name="Satz04Heim" ColumnName="Satz04Heim" />
+                <ScalarProperty Name="Satz03Gast" ColumnName="Satz03Gast" />
+                <ScalarProperty Name="Satz03Heim" ColumnName="Satz03Heim" />
+                <ScalarProperty Name="Satz02Gast" ColumnName="Satz02Gast" />
+                <ScalarProperty Name="Satz02Heim" ColumnName="Satz02Heim" />
+                <ScalarProperty Name="Satz01Gast" ColumnName="Satz01Gast" />
+                <ScalarProperty Name="Satz01Heim" ColumnName="Satz01Heim" />
+                <ScalarProperty Name="id_Spielbaelle" ColumnName="id_Spielbaelle" />
+                <ScalarProperty Name="idBegegnung" ColumnName="idBegegnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_Begegnungen_Zusammenfassung_PunkteSaetze">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_Begegnungen_Zusammenfassung_PunkteSaetze">
+              <MappingFragment StoreEntitySet="qry_Begegnungen_Zusammenfassung_PunkteSaetze">
+                <ScalarProperty Name="idSaison" ColumnName="idSaison" />
+                <ScalarProperty Name="Bemerkungen" ColumnName="Bemerkungen" />
+                <ScalarProperty Name="StrafpunkteGast" ColumnName="StrafpunkteGast" />
+                <ScalarProperty Name="StrafpunkteHeim" ColumnName="StrafpunkteHeim" />
+                <ScalarProperty Name="Saetze" ColumnName="Saetze" />
+                <ScalarProperty Name="Satz5" ColumnName="Satz5" />
+                <ScalarProperty Name="Satz4" ColumnName="Satz4" />
+                <ScalarProperty Name="Satz3" ColumnName="Satz3" />
+                <ScalarProperty Name="Satz2" ColumnName="Satz2" />
+                <ScalarProperty Name="Satz1" ColumnName="Satz1" />
+                <ScalarProperty Name="Gast" ColumnName="Gast" />
+                <ScalarProperty Name="Heim" ColumnName="Heim" />
+                <ScalarProperty Name="Begegnungsdatum" ColumnName="Begegnungsdatum" />
+                <ScalarProperty Name="Spielnummer" ColumnName="Spielnummer" />
+                <ScalarProperty Name="idBegegnung" ColumnName="idBegegnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="qry_LigaSaison">
+            <EntityTypeMapping TypeName="InstInitiatorDBModel.qry_LigaSaison">
+              <MappingFragment StoreEntitySet="qry_LigaSaison">
+                <ScalarProperty Name="LigaSaison" ColumnName="LigaSaison" />
+                <ScalarProperty Name="idSaison" ColumnName="idSaison" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspGetSaisonTabelle" FunctionName="InstInitiatorDBModel.Store.uspGetSaisonTabelle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InstInitiatorDBModel.uspGetSaisonTabelle_Result">
+                <ScalarProperty Name="id_mannschaft" ColumnName="id_mannschaft" />
+                <ScalarProperty Name="mannschaft" ColumnName="mannschaft" />
+                <ScalarProperty Name="spiele" ColumnName="spiele" />
+                <ScalarProperty Name="DreiZuNullDreiZuEins" ColumnName="DreiZuNullDreiZuEins" />
+                <ScalarProperty Name="DreiZuZwei" ColumnName="DreiZuZwei" />
+                <ScalarProperty Name="ZweiZuDrei" ColumnName="ZweiZuDrei" />
+                <ScalarProperty Name="EinsZuDrei_NullZuDrei" ColumnName="EinsZuDrei_NullZuDrei" />
+                <ScalarProperty Name="Baelle" ColumnName="Baelle" />
+                <ScalarProperty Name="Diff" ColumnName="Diff" />
+                <ScalarProperty Name="Saetze" ColumnName="Saetze" />
+                <ScalarProperty Name="Punkte" ColumnName="Punkte" />
+                <ScalarProperty Name="liga" ColumnName="liga" />
+                <ScalarProperty Name="Strafpunkte" ColumnName="Strafpunkte" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Standard" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
