@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFLigaDB", "EFLigaDB\EFLigaDB.csproj", "{4D9D5113-6964-415F-9EBA-38B19AADED52}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplicationLiga", "WpfApplicationLiga.csproj", "{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplicationLiga", "WpfApplicationLiga\WpfApplicationLiga.csproj", "{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFLigaDB", "..\EFLigaDB\EFLigaDB.csproj", "{4D9D5113-6964-415F-9EBA-38B19AADED52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A7365B9-A05D-431A-88CD-BC019B2C8BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9D5113-6964-415F-9EBA-38B19AADED52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
